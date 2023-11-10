@@ -7,22 +7,29 @@ import { showLogin } from './views/login.js';
 import { showRegister } from './views/register.js';
 import { showDashboard } from './views/dashboard.js';
 import { logout } from './data/auth.js';
+import { showDetails } from './views/details.js';
+import { showCreate } from './views/create.js';
+import { showEdit } from './views/edit.js';
 
 const root = document.getElementById('wrapper');
 
 page(decorateContext);
-page('index.html', '/');
+page('/index.html', '/');
 page('/', showHome);
 page('/login', showLogin);
 page('/register', showRegister);
 page('/logout', logoutAction);
 page('/dashboard', showDashboard);
+page('/create', showCreate);
+page('/details/:id', showDetails);
+page('/edit/:id', showEdit);
 
 page.start();
 
 // middlewares
 function decorateContext(ctx, next) {
     ctx.render = renderView;
+    ctx.session = getUserData();
     next();
 }
 
@@ -32,7 +39,9 @@ function renderView(content) {
     render(layoutTemplate(userData, content), root);
 }
 
+// other actions
 function logoutAction(ctx) {
     logout();
     ctx.page.redirect('/');
 }
+
