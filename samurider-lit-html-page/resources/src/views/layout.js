@@ -7,7 +7,7 @@ export const layoutTemplate = (userData, content) => html`
         <nav>
           <div>
             <a href="/dashboard">Motorcycles</a>
-            <!-- <a href="/search">Search</a> -->
+            <a href="/search">Search</a>
           </div>
         
           ${userData ? html`<div class="user">

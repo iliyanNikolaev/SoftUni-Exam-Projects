@@ -18,14 +18,16 @@ const loginTemplate = (onLogin) => html`
         </section>
 `;
 
-export const showLogin = (ctx) => { 
-    ctx.render(loginTemplate(createSubmitHandler(onLogin)));
-    
-    // Todo... Change user object, if it necessary, according to project requirments 
-    async function onLogin({ email, password }, form) {
-        await login(email.trim(), password.trim());
-        form.reset();
-        // Todo... Use redirection location from requirments
-        ctx.page.redirect('/');
+export const showLogin = (ctx) => {
+  const onLogin = async({ email, password }, form) => {
+    if(!email || !password) {
+      return alert('All fields are required!')
     }
+    await login(email.trim(), password.trim());
+    form.reset();
+    // Todo... Use redirection location from requirments
+    ctx.page.redirect('/');
+  }
+  
+  ctx.render(loginTemplate(createSubmitHandler(onLogin)));
 }

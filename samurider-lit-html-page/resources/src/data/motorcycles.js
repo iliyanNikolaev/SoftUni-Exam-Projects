@@ -24,5 +24,5 @@ export const editMotorcycleById = async (id, data) => {
 
 
 export const deleteMotorcycleById = async (id) => {
-    return get(endpoints.byId + id);
+    return del(endpoints.byId + id);
 }
