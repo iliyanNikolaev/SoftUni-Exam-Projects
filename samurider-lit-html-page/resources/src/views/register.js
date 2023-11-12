@@ -17,20 +17,18 @@ const registerTemplate = (onRegister) => html`
         </section>
 `;
 
-export const showRegister = (ctx) => { 
-    ctx.render(registerTemplate(createSubmitHandler(onRegister)));
-    
-    // Todo... Change user object, if it necessary, according to project requirments 
-    async function onRegister({ email, password, ['re-password']: rePass }, form) {
-        if(password != rePass) {
-            return alert('Passwords dont match!');
-        }
-        if(!email || !password) {
-            return alert('All fields are required!')
-        }
-        await register(email.trim(), password.trim());
-        form.reset();
-        // Todo... Use redirection location from requirments
-        ctx.page.redirect('/');
+export const showRegister = (ctx) => {
+  const onRegister = async ({ email, password, ['re-password']: rePass }, form) => {
+    if (password != rePass) {
+      return alert('Passwords dont match!');
     }
+    if (!email || !password) {
+      return alert('All fields are required!')
+    }
+    await register(email.trim(), password.trim());
+    form.reset();
+    ctx.page.redirect('/');
+  }
+
+  ctx.render(registerTemplate(createSubmitHandler(onRegister)));
 }

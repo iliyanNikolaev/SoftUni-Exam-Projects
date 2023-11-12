@@ -19,7 +19,7 @@ const loginTemplate = (onLogin) => html`
 `;
 
 export const showLogin = (ctx) => {
-  const onLogin = async({ email, password }, form) => {
+  const onLogin = async ({ email, password }, form) => {
     if(!email || !password) {
       return alert('All fields are required!')
     }

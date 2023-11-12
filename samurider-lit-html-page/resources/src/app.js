@@ -10,6 +10,7 @@ import { showDashboard } from './views/dashboard.js';
 import { showDetails } from './views/details.js';
 import { showEdit } from './views/edit.js';
 import { showCreate } from './views/create.js';
+import { showSearch } from './views/search.js';
 
 import * as motorcycles from './data/motorcycles.js';
 window.motorcycles = motorcycles;
@@ -25,7 +26,7 @@ page('/dashboard', showDashboard);
 page('/create', showCreate);
 page('/details/:id', showDetails);
 page('/edit/:id', showEdit);
-
+page('/search', showSearch);
 page.start();
 
 // middlewares
