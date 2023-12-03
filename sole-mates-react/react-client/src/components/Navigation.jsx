@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom'
-import { useAuthContext } from '../contexts/AuthContext'
+import { Link } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 export const Navigation = () => {
   const { userData } = useAuthContext();

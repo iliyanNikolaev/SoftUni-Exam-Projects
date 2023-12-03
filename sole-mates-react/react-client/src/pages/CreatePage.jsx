@@ -1,51 +1,50 @@
-import React from 'react'
+import { useForm } from '../hooks/useForm';
+import { useShoesContext } from '../contexts/ShoesContext';
+import { useNavigate } from 'react-router-dom';
 
 export const CreatePage = () => {
+
+  const { formValues, onChange } = useForm({
+    brand: '',
+    model: '',
+    imageUrl: '',
+    release: '',
+    designer: '',
+    value: ''
+  });
+
+  const { createShoe } = useShoesContext();
+
+  const navigate = useNavigate();
+
+  const createSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    for (const value in formValues) {
+      if(!formValues[value]) {
+        return alert('All fields are required!')
+      }
+    }
+
+    await createShoe(formValues);
+    navigate('/dashboard');
+  }
+
   return (
     <section id="create">
-    <div class="form">
-      <h2>Add item</h2>
-      <form class="create-form">
-        <input
-          type="text"
-          name="brand"
-          id="shoe-brand"
-          placeholder="Brand"
-        />
-        <input
-          type="text"
-          name="model"
-          id="shoe-model"
-          placeholder="Model"
-        />
-        <input
-          type="text"
-          name="imageUrl"
-          id="shoe-img"
-          placeholder="Image url"
-        />
-        <input
-          type="text"
-          name="release"
-          id="shoe-release"
-          placeholder="Release date"
-        />
-        <input
-          type="text"
-          name="designer"
-          id="shoe-designer"
-          placeholder="Designer"
-        />
-        <input
-          type="text"
-          name="value"
-          id="shoe-value"
-          placeholder="Value"
-        />
+      <div className="form">
+        <h2>Add item</h2>
+        <form className="create-form" onSubmit={createSubmitHandler}>
+          <input type="text" name="brand" id="shoe-brand" placeholder="Brand" onChange={onChange} />
+          <input type="text" name="model" id="shoe-model" placeholder="Model" onChange={onChange} />
+          <input type="text" name="imageUrl" id="shoe-img" placeholder="Image url" onChange={onChange} />
+          <input type="text" name="release" id="shoe-release" placeholder="Release date" onChange={onChange} />
+          <input type="text" name="designer" id="shoe-designer" placeholder="Designer" onChange={onChange} />
+          <input type="text" name="value" id="shoe-value" placeholder="Value" onChange={onChange} />
 
-        <button type="submit">post</button>
-      </form>
-    </div>
-  </section>
+          <button type="submit">post</button>
+        </form>
+      </div>
+    </section>
   )
 }
