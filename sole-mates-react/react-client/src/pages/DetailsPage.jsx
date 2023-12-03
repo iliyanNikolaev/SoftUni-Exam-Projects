@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { useShoesContext } from "../contexts/ShoesContext";
 import { useAuthContext } from "../contexts/AuthContext";
 
@@ -51,8 +51,8 @@ export const DetailsPage = () => {
 
         {currentItem.canEdit
           ? <div id="action-buttons">
-            <a href={`/edit/${currentItem._id}`} id="edit-btn">Edit</a>
-            <a href="javascript:void(0)" onClick={deleteShoeHandler} id="delete-btn">Delete</a>
+            <Link to={`/edit/${currentItem._id}`} id="edit-btn">Edit</Link>
+            <a href="#" onClick={deleteShoeHandler} id="delete-btn">Delete</a>
           </div>
           : null}
 

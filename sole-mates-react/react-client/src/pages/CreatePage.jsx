@@ -1,8 +1,13 @@
 import { useForm } from '../hooks/useForm';
 import { useShoesContext } from '../contexts/ShoesContext';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useAuthContext } from '../contexts/AuthContext';
 
 export const CreatePage = () => {
+  const { userData } = useAuthContext();
+  if(!userData.isAuthenticated) {
+    return <Navigate to={'/'}/>
+  }
 
   const { formValues, onChange } = useForm({
     brand: '',
