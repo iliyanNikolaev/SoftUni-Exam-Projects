@@ -1,16 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks/useForm';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect } from 'react';
 
 export const RegisterPage = () => {
+  const { register, userData } = useAuthContext();
+  useEffect(() => {
+    if(userData.isAuthenticated) navigate('/');
+  }, [])
 
   const { formValues, onChange } = useForm({
     email: '',
     password: '',
     're-password': ''
   });
-
-  const { register } = useAuthContext();
 
   const navigate = useNavigate();
 

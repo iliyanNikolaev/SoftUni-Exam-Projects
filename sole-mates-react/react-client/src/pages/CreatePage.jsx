@@ -1,13 +1,15 @@
 import { useForm } from '../hooks/useForm';
 import { useShoesContext } from '../contexts/ShoesContext';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect } from 'react';
 
 export const CreatePage = () => {
   const { userData } = useAuthContext();
-  if(!userData.isAuthenticated) {
-    return <Navigate to={'/'}/>
-  }
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userData.isAuthenticated) navigate('/login');
+  }, []);
 
   const { formValues, onChange } = useForm({
     brand: '',
@@ -20,13 +22,12 @@ export const CreatePage = () => {
 
   const { createShoe } = useShoesContext();
 
-  const navigate = useNavigate();
 
   const createSubmitHandler = async (e) => {
     e.preventDefault();
 
     for (const value in formValues) {
-      if(!formValues[value]) {
+      if (!formValues[value]) {
         return alert('All fields are required!')
       }
     }

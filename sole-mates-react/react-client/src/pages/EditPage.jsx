@@ -1,13 +1,14 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useShoesContext } from "../contexts/ShoesContext";
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthContext";
 
 export const EditPage = () => {
   const { userData } = useAuthContext();
-  if(!userData.isAuthenticated) {
-    return <Navigate to={'/dashboard'}/>
-  }
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(!userData.isAuthenticated) navigate('/dashboard');
+  }, [])
 
   const [formValues, setFormValues] = useState({});
   const onChange = (e) => setFormValues(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -15,15 +16,12 @@ export const EditPage = () => {
   const { id } = useParams();
   const { getShoeById, editShoeById } = useShoesContext();
   
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getShoeById(id)
       .then(item => {
-        if(userData._id != item._ownerId){
-          return navigate('/dashboard')
-        }
+        if(userData._id != item._ownerId) navigate('/dashboard');
         setFormValues(item);
         setLoading(false);
       })

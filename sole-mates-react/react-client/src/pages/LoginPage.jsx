@@ -1,17 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from '../hooks/useForm';
 import { useAuthContext } from '../contexts/AuthContext';
+import { useEffect } from 'react';
 
 export const LoginPage = () => {
-
+  const { login, userData } = useAuthContext();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if(userData.isAuthenticated) navigate('/');
+  }, [])
+  
   const { formValues, onChange } = useForm({
     email: '',
     password: ''
   });
-
-  const { login } = useAuthContext();
-
-  const navigate = useNavigate();
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
