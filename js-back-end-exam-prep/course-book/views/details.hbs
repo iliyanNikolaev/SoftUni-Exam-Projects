@@ -9,9 +9,9 @@
         <h3>Price: €{{course.price}}</h3>
         <h3>By: {{course.owner.email}}</h3>
         {{#if course.signUpList}}
-        <h4>Signed By: cate.brown, nikolas.p</h4>
+            <h4>Signed By: {{parseSignUpList course.signUpList}}</h4>
         {{else}}
-        <h4>Nobody has signed in for this course yet</h4>
+            <h4>Nobody has signed in for this course yet</h4>
         {{/if}}
     </div>
     <div class="details-container-content">
@@ -20,15 +20,15 @@
     {{#if isAuthenticated}}
     <div class="btn-container">
         {{#if (eq userData._id course.owner._id) }}
-        <a href="/courses/edit/{{course._id}}">Edit</a>
-        <a href="/courses/delete/{{course._id}}">Delete</a>
+            <a href="/courses/edit/{{course._id}}">Edit</a>
+            <a href="/courses/delete/{{course._id}}">Delete</a>
         {{else}}
-        {{#if (signed course.signUpList userData._id)}}
-        <p class="sign-up">You've already signed up for this course!</p>
-        {{else}}
-        <a href="/courses/signup/{{course._id}}">Sign up</a>
-        {{/if}}
+            {{#if (signed course.signUpList userData._id)}}
+                <p class="sign-up">You've already signed up for this course!</p>
+            {{else}}
+                <a href="/courses/signup/{{course._id}}">Sign up</a>
+            {{/if}}
         {{/if}}
     </div>
-    {{/if}}
+{{/if}}
 </div>

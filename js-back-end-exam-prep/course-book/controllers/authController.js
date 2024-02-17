@@ -50,6 +50,15 @@ function registerDto(req) {
     if(req.body.username == '' || req.body.email == '' || req.body.password == '') {
         throw new Error('all fields are required');
     }
+    if(req.body.username.length < 2) {
+        throw new Error('The username should be at least 2 characters long');
+    }
+    if(req.body.email.length < 10) {
+        throw new Error('The email should be at least 10 characters long');
+    }
+    if(req.body.password.length < 4) {
+        throw new Error('The password should be at least 4 characters long');
+    }
     if(req.body.password != req.body.repeat) {
         throw new Error('passwords dont match');
     }

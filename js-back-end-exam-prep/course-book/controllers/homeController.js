@@ -1,12 +1,11 @@
-const { getAllCourses } = require('../services/courseService');
+const { getLast3Courses } = require('../services/courseService');
 const { errorParser } = require('../utils/errorParser');
 
 const homeController = require('express').Router();
 
 homeController.get('/', async (req, res) => {
     try {
-        let courses = await getAllCourses();
-
+        const courses = await getLast3Courses();
         res.render('home', {
             courses
         });   

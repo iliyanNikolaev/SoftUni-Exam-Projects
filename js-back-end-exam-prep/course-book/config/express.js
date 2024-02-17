@@ -9,7 +9,15 @@ function configureExpress(app){
         extname: '.hbs',
         helpers: {
             eq: (user, owner) => owner == user,
-            signed: (signUpList, user) => signUpList.includes(user)
+            signed: (signUpList, user) => {
+                for (const signer of signUpList) {
+                    if(signer._id == user){
+                        return true;
+                    }
+                }
+                return false;
+            },
+            parseSignUpList: (signUpList) => signUpList.map(x => x.email).join(', ')
         }
     });
     app.engine('.hbs', hbs.engine);

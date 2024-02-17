@@ -35,6 +35,9 @@ const courseSchema = new Schema({
         type: Types.ObjectId,
         ref: 'User'
     }
+},
+{
+    timestamps: true 
 });
 
 

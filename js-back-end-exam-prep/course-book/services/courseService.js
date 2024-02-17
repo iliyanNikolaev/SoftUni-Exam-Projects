@@ -11,28 +11,37 @@ async function getCourseById(id) {
 }
 
 async function createCourse(courseData) {
-    const { title, type, certificate, image, description, price, owner} = courseData;
+    await Course.create({ ...courseData, price: Number(courseData.price) });
+}
 
-    const created = await Course.create({
-        title,
-        type,
-        certificate,
-        image,
-        description,
-        price: Number(price),
-        owner
-    });
-
-    return created;
+async function editCourseById(id, courseData) {
+    await Course.findByIdAndUpdate(id, { ...courseData, price: Number(courseData.price) });
 }
 
 async function deleteCourseById(id) {
     await Course.findByIdAndDelete(id);
 }
 
+async function getLast3Courses() {
+    const courses = await Course.find().sort({ createdAt: -1 }).limit(3).lean();
+    return courses;
+}
+
+async function signUpForCourse(courseId, userId) {
+    await Course.updateOne({
+        _id: courseId
+    },
+    {
+        $push: { signUpList: userId }
+    });
+}
+
 module.exports = {
     createCourse,
     getAllCourses,
     getCourseById,
-    deleteCourseById
+    editCourseById,
+    deleteCourseById,
+    getLast3Courses,
+    signUpForCourse
 }
